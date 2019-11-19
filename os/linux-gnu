@@ -1,0 +1,65 @@
+#!/bin/bash
+
+OS=
+RELEASE=$(cat /etc/*release | grep ^NAME)
+
+if grep -q Fedora <<< $RELEASE; then
+    OS=Fedora
+elif grep -q Ubuntu <<< $RELEASE; then
+    OS=Debian
+elif grep -q Debian <<< $RELEASE; then
+    OS=Debian
+fi
+
+SHARED_PACKAGES=$(cat <<EOF
+git zsh vim tmux httpie vim hub
+EOF
+)
+
+DEBIAN_PACKAGES=$(cat <<EOF
+$SHARED_PACKAGES
+build-essential
+
+imagemagick shellcheck
+silversearcher-ag shellcheck
+EOF
+)
+
+FEDORA_PACKAGES=$(cat <<EOF
+$SHARED_PACKAGES
+
+git-lfs the_silver_searcher 
+ShellCheck ImageMagick
+postgresql-server postgresql-contrib libpq-devel redis 
+
+openssl-devel
+EOF
+)
+
+systemd_enable_databases_on_restart() {
+    fancy_echo "Ensuring Postgresql Redis run on startup."
+    if sudo bash -c '[ ! -d "/var/lib/pgsql/data" ]'; then
+        sudo /usr/bin/postgresql-setup --initdb
+    fi
+    sudo systemctl start postgresql
+    sudo systemctl start redis
+    sudo systemctl enable postgresql
+    sudo systemctl enable redis
+}
+
+case $OS in
+    Fedora)
+        fancy_echo "Installing packages using dnf"
+        sudo dnf groupinstall -y "C Development Tools and Libraries"
+        sudo dnf -y install $FEDORA_PACKAGES
+        systemd_enable_databases_on_restart
+        ;;
+    Debian)
+        fancy_echo "Installing packages using apt"
+        sudo apt install -y $DEBIAN_PACKAGES
+        systemd_enable_databases_on_restart
+        ;;
+    *)
+        fancy_echo "You're OS is not detected, cannot install packages."
+        ;;
+esac
