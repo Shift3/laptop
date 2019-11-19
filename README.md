@@ -13,6 +13,8 @@ your liking if desired.
 The `setup` script is designed to be ran multiple times if necessary, it is
 non-destructive, and will backup your previous dotfile setup if any exist.
 
+![screen](img/screen.png)
+
 Install
 -------
 
