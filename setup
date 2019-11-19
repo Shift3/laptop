@@ -82,7 +82,7 @@ install_vim_plug() {
 }
 
 vim_up() {
-  vim -u "$HOME"/.vimrc.bundles +PlugUpdate +PlugClean! +qa
+  vim -u "$HOME"/.vimrc +PlugUpdate +PlugClean! +qa
 }
 
 update_shell() {
