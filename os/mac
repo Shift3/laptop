@@ -44,7 +44,7 @@ brew "watchman"
 brew "zsh"
 
 # Docker
-brew "Caskroom/cask/docker"
+brew "docker"
 
 # GitHub
 brew "hub"
