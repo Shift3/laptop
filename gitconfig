@@ -1,5 +1,7 @@
 [include]
   path = ~/.gitconfig.user
+[commit]
+  template = ~/.gitmessage
 [push]
   default = current
 [color]

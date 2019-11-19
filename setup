@@ -87,6 +87,7 @@ link_dotfile gitconfig
 link_dotfile zshrc
 link_dotfile psqlrc
 link_dotfile gitmessage
+link_dotfile gitignore
 
 fancy_echo "Installing OS Specific Packages ..."
 install_os_specific_packages

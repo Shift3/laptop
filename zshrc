@@ -70,3 +70,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
+# NOTE: You may place your own configurations in ~/.zshrc.user
+[[ -f ~/.zshrc.user ]] && source ~/.zshrc.user
+
