@@ -105,6 +105,7 @@ Git:
 
 | Alias         | Description           |
 | ------------- |:-------------:|
+| `g aa`         | git add all unstaged files |
 | `g c`         | Commit (brings up EDITOR) |
 | `g ca`        | Amend last commit      |
 | `g co`        | Checkout      |
