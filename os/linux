@@ -36,7 +36,7 @@ $SHARED_PACKAGES
 
 git-lfs the_silver_searcher 
 ShellCheck ImageMagick
-postgresql-server postgresql-contrib libpq-devel redis 
+postgresql-server postgresql-contrib libpq-devel redis mongodb-org
 
 dnf-plugins-core
 
@@ -45,14 +45,27 @@ EOF
 )
 
 systemd_enable_databases_on_restart() {
-    fancy_echo "Ensuring Postgresql and Redis run on startup."
+    fancy_echo "Ensuring databases run on startup."
     if sudo bash -c '[ ! -d "/var/lib/pgsql/data" ]'; then
         sudo /usr/bin/postgresql-setup --initdb
     fi
     sudo systemctl start postgresql
     sudo systemctl start redis
+    sudo systemctl start mongod
     sudo systemctl enable postgresql
     sudo systemctl enable redis
+    sudo systemctl enable mongod
+}
+
+dnf_add_mongo_repo() {
+    sudo tee /etc/yum.repos.d/mongodb-org-4.2.repo > /dev/null <<EOF
+[mongodb-org-4.2]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/8/mongodb-org/4.2/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
+EOF
 }
 
 dnf_add_and_install_docker_ce() {
@@ -80,6 +93,7 @@ case $OS in
     Fedora)
         fancy_echo "Installing packages using dnf"
         sudo dnf groupinstall -y "C Development Tools and Libraries"
+        dnf_add_mongo_repo
         sudo dnf -y install $FEDORA_PACKAGES
         dnf_add_and_install_docker_ce
         systemd_enable_databases_on_restart

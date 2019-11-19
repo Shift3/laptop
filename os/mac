@@ -32,6 +32,7 @@ fancy_echo "Updating Homebrew formulae ..."
 brew update --force # https://github.com/Homebrew/brew/issues/1151
 brew bundle --file=- <<EOF
 tap "homebrew/services"
+tap "mongodb/brew"
 
 # Unix
 brew "git"
@@ -60,4 +61,5 @@ cask "gpg-suite"
 # Databases
 brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
+brew "mongodb-community", restart_service: :changed
 EOF
