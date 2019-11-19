@@ -40,6 +40,8 @@ link_dotfile() {
 
 fancy_echo() {
   local fmt="$1"; shift
+
+  # shellcheck disable=SC2059
   printf "\\n$fmt\\n" "$@"
 }
 
@@ -57,6 +59,7 @@ install_os_specific_packages() {
     OS=mac
   fi
   if [ -f "os/$OS" ]; then
+    # shellcheck source=/dev/null
     source "os/$OS"
   fi
 }
