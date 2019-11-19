@@ -82,7 +82,7 @@ install_vim_plug() {
 }
 
 vim_up() {
-  vim -u "$HOME"/.vimrc +PlugUpdate +PlugClean! +qa
+  VIM_INSTALL_PHASE=1 vim -u "$HOME"/.vimrc +PlugUpdate +PlugClean! +qa
 }
 
 update_shell() {

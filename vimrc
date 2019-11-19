@@ -187,7 +187,9 @@ endif
 
 " Appearance
 set background=dark
-colorscheme oblivion
+if !$VIM_INSTALL_PHASE
+  colorscheme oblivion
+endif
 
 nmap <leader>h :nohlsearch<cr>
 
