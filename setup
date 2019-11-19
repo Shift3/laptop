@@ -75,6 +75,11 @@ update_shell() {
   sudo chsh -s "$shell_path" "$USER"
 }
 
+link_dotfile gitconfig
+link_dotfile zshrc
+link_dotfile psqlrc
+link_dotfile gitmessage
+
 fancy_echo "Installing OS Specific Packages ..."
 install_os_specific_packages
 
@@ -88,11 +93,6 @@ case "$SHELL" in
     update_shell
     ;;
 esac
-
-link_dotfile gitconfig
-link_dotfile zshrc
-link_dotfile psqlrc
-link_dotfile gitmessage
 
 if [ ! -d "$HOME/.nvm" ]; then
   fancy_echo "Installing Node ..."

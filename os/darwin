@@ -2,28 +2,27 @@
 HOMEBREW_PREFIX="/usr/local"
 
 install_homebrew() {
-	if [ -d "$HOMEBREW_PREFIX" ]; then
-		if ! [ -r "$HOMEBREW_PREFIX" ]; then
-			sudo chown -R "$LOGNAME:admin" /usr/local
-		fi
-	else
-		sudo mkdir "$HOMEBREW_PREFIX"
-		sudo chflags norestricted "$HOMEBREW_PREFIX"
-		sudo chown -R "$LOGNAME:admin" "$HOMEBREW_PREFIX"
-	fi
+  if [ -d "$HOMEBREW_PREFIX" ]; then
+    if ! [ -r "$HOMEBREW_PREFIX" ]; then
+      sudo chown -R "$LOGNAME:admin" /usr/local
+    fi
+  else
+    sudo mkdir "$HOMEBREW_PREFIX"
+    sudo chflags norestricted "$HOMEBREW_PREFIX"
+    sudo chown -R "$LOGNAME:admin" "$HOMEBREW_PREFIX"
+  fi
 
-	if ! command -v brew >/dev/null; then
-		fancy_echo "Installing Homebrew ..."
-		curl -fsS \
-			'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby
+  if ! command -v brew >/dev/null; then
+    fancy_echo "Installing Homebrew ..."
+    curl -fsS \
+      'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby
 
-		append_to_zshrc '# recommended by brew doctor'
+    append_to_zshrc '# recommended by brew doctor'
 
-		# shellcheck disable=SC2016
-		append_to_zshrc 'export PATH="/usr/local/bin:$PATH"' 1
+    append_to_zshrc 'export PATH="/usr/local/bin:$PATH"' 1
 
-		export PATH="/usr/local/bin:$PATH"
-	fi
+    export PATH="/usr/local/bin:$PATH"
+  fi
 }
 
 install_homebrew
@@ -36,7 +35,6 @@ fi
 fancy_echo "Updating Homebrew formulae ..."
 brew update --force # https://github.com/Homebrew/brew/issues/1151
 brew bundle --file=- <<EOF
-tap "thoughtbot/formulae"
 tap "homebrew/services"
 
 # Unix
