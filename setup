@@ -51,8 +51,13 @@ install_nvm() {
 }
 
 install_os_specific_packages() {
-  if [ -f "os/$OSTYPE" ]; then
-    source "os/$OSTYPE"
+  if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    OS=linux
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    OS=mac
+  fi
+  if [ -f "os/$OS" ]; then
+    source "os/$OS"
   fi
 }
 
