@@ -17,10 +17,6 @@ install_homebrew() {
     curl -fsS \
       'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby
 
-    append_to_zshrc '# recommended by brew doctor'
-
-    append_to_zshrc 'export PATH="/usr/local/bin:$PATH"' 1
-
     export PATH="/usr/local/bin:$PATH"
   fi
 }
@@ -45,6 +41,9 @@ brew "tmux"
 brew "vim"
 brew "watchman"
 brew "zsh"
+
+# Docker
+brew "Caskroom/cask/docker"
 
 # GitHub
 brew "hub"

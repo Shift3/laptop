@@ -7,8 +7,14 @@ if grep -q Fedora <<< $RELEASE; then
     OS=Fedora
 elif grep -q Ubuntu <<< $RELEASE; then
     OS=Debian
+    DOCKER_APT_REPO="deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) \
+        stable"
 elif grep -q Debian <<< $RELEASE; then
     OS=Debian
+    DOCKER_APT_REPO="deb [arch=amd64] https://download.docker.com/linux/debian \
+        $(lsb_release -cs) \
+        stable"
 fi
 
 SHARED_PACKAGES=$(cat <<EOF
@@ -32,12 +38,14 @@ git-lfs the_silver_searcher
 ShellCheck ImageMagick
 postgresql-server postgresql-contrib libpq-devel redis 
 
+dnf-plugins-core
+
 openssl-devel
 EOF
 )
 
 systemd_enable_databases_on_restart() {
-    fancy_echo "Ensuring Postgresql Redis run on startup."
+    fancy_echo "Ensuring Postgresql and Redis run on startup."
     if sudo bash -c '[ ! -d "/var/lib/pgsql/data" ]'; then
         sudo /usr/bin/postgresql-setup --initdb
     fi
@@ -47,17 +55,42 @@ systemd_enable_databases_on_restart() {
     sudo systemctl enable redis
 }
 
+dnf_add_and_install_docker_ce() {
+    sudo dnf config-manager \
+        --add-repo \
+        https://download.docker.com/linux/fedora/docker-ce.repo
+    sudo dnf -y install docker-ce docker-ce-cli containerd.io
+}
+
+deb_add_and_install_docker_ce() {
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+    sudo add-apt-repository $DOCKER_APT_REPO
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io
+}
+
+systemd_enable_docker_on_restart() {
+    fancy_echo "Ensuring Docker runs on startup."
+    sudo usermod -aG docker $(whoami)
+    sudo systemctl start docker
+    sudo systemctl enable docker
+}
+
 case $OS in
     Fedora)
         fancy_echo "Installing packages using dnf"
         sudo dnf groupinstall -y "C Development Tools and Libraries"
         sudo dnf -y install $FEDORA_PACKAGES
+        dnf_add_and_install_docker_ce
         systemd_enable_databases_on_restart
+        systemd_enable_docker_on_restart
         ;;
     Debian)
         fancy_echo "Installing packages using apt"
         sudo apt install -y $DEBIAN_PACKAGES
+        deb_add_and_install_docker_ce
         systemd_enable_databases_on_restart
+        systemd_enable_docker_on_restart
         ;;
     *)
         fancy_echo "You're OS is not detected, cannot install packages."
