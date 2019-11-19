@@ -120,5 +120,6 @@ case $OS in
         ;;
     *)
         fancy_echo "You're OS is not detected, cannot install packages."
+        exit 1
         ;;
 esac

@@ -1,7 +1,7 @@
 Shift3 Laptop setup and Dotfiles
 ================================
 
-[![CircleCI](https://circleci.com/gh/Shift3/laptop.svg?style=svg)](https://circleci.com/gh/Shift3/laptop)
+[![CircleCI](https://circleci.com/gh/Shift3/laptop.svg?style=svg&circle-token=e273355c5438b649729962059454a44bd2b255a4)](https://circleci.com/gh/Shift3/laptop)
 
 The scripts contained in this repo will setup your Mac, Ubuntu, Debian, or
 Fedora computer with a base development environment, installing tools that we
@@ -33,6 +33,9 @@ cd laptop
 # Y/N prompts, please hit Y <enter>
 ```
 
+It should take around 5-10 minutes to install everything. After install reboot
+your computer to ensure that everything takes. 
+
 
 What it installs
 ----------------
@@ -59,6 +62,12 @@ Unix tools:
 [Watchman]: https://facebook.github.io/watchman/
 [Zsh]: http://www.zsh.org/
 
+Container tools:
+
+* [Docker] for containerizing applications
+
+[Docker]: https://www.docker.com/
+
 GitHub tools:
 
 * [Hub] for interacting with the GitHub API
@@ -80,3 +89,23 @@ Databases:
 [Postgres]: http://www.postgresql.org/
 [Redis]: http://redis.io/
 [Mongo]: https://www.mongodb.com/
+
+Maintaining your customizations
+-------------------------------
+
+You may choose 1 of 2 options. Either you can fork this repo and make your
+changes directly to the dotfiles herein, or you can use the built in
+extensibility, each dotfiles calls out to another dotfile extension if it
+exists. For example if `~/.zshrc.user` exists it will be called and your extra
+configurations for zsh will be executed from there. Similar customizations for
+`~/.gitconfig.user` 
+
+A recommended `~/.gitconfig.user` looks as follows.
+
+```ini
+[user]
+  name = Justin Schiff
+  email = jschiff@shift3tech.com
+```
+
+
