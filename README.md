@@ -90,6 +90,56 @@ Databases:
 [Redis]: http://redis.io/
 [Mongo]: https://www.mongodb.com/
 
+What is Configures
+------------------
+
+Git:
+
+* `g` typed alone is the same as `git status` and can be used as a replacement
+  for `git`, so you can type any git command with `g` instead like: `g commit`
+* Sets up git commit to use a template encouraging you to write nice git commit
+  messages.
+* Some sensible defaults for fetch, rebase, merge, and push.
+* Sets up some handy aliases, notable aliases are:
+
+
+| Alias         | Description           |
+| ------------- |:-------------:|
+| `g c`         | Commit (brings up EDITOR) |
+| `g ca`        | Amend last commit      |
+| `g co`        | Checkout      |
+| `g d`        | Diff      |
+| `g fup`        | Fetch and rebase branch against develop      |
+| `g lg`        | A prettier and nicer git log |
+| `g branches`        | Pretty list of branches |
+| `g who`        | List of people who are major commiters on the repo |
+
+Zsh:
+
+* Sets a nice pretty prompt, whenever you cd into a directory with git displays
+  the git branch in the prompt.
+* Setup autocompletion.
+* Uses some cd movement options of zsh, you can type the directory names instead
+  of prefixing them with cd making movement easier.
+* Enables some extended features making zsh nicer.
+* Setup `PATH` to function with some of the OS packages we installed earlier,
+  nvm, yarn, homebrew (if on mac), ~/bin (if exists).
+* Set default terminal editor to vim.
+
+Psql:
+
+* psql console does not wrap records in an ugly way now if the line is too long,
+  it chooses the best layout based on how long the row is.
+* Keeps history so if you close console and come back in you can still press up
+  to view your command history.
+
+Vim:
+
+* A stripped down version of my default vim setup, should be a bit nicer for
+  people just getting into vim.
+* Has some basic vim plugins that make things functional. See the file for more
+  details, it's decently commented.
+
 Maintaining your customizations
 -------------------------------
 
@@ -108,4 +158,9 @@ A recommended `~/.gitconfig.user` looks as follows.
   email = jschiff@shift3tech.com
 ```
 
+Reporting Bugs
+--------------
 
+CircleCI is run any time we push to the repository which runs the mac install to
+make sure everything works properly at least on a smoke test. If you come across
+any issues running the install script, feel free to open an issue.
