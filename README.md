@@ -102,18 +102,17 @@ Git:
 * Some sensible defaults for fetch, rebase, merge, and push.
 * Sets up some handy aliases, notable aliases are:
 
-
-| Alias         | Description           |
-| ------------- |:-------------:|
-| `g aa`         | git add all unstaged files |
-| `g c`         | Commit (brings up EDITOR) |
-| `g ca`        | Amend last commit      |
-| `g co`        | Checkout      |
-| `g d`        | Diff      |
-| `g fup`        | Fetch and rebase branch against develop      |
-| `g lg`        | A prettier and nicer git log |
-| `g branches`        | Pretty list of branches |
-| `g who`        | List of people who are major commiters on the repo |
+| Alias         | Description                                        |
+| ------------- |:--------------------------------------------------:|
+| `g aa`        | git add all unstaged files                         |
+| `g c`         | Commit (brings up EDITOR)                          |
+| `g ca`        | Amend last commit                                  |
+| `g co`        | Checkout                                           |
+| `g d`         | Diff                                               |
+| `g fup`       | Fetch and rebase branch against develop            |
+| `g lg`        | A prettier and nicer git log                       |
+| `g branches`  | Pretty list of branches                            |
+| `g who`       | List of people who are major commiters on the repo |
 
 Zsh:
 
