@@ -9,7 +9,7 @@ elif grep -q Ubuntu <<< $RELEASE; then
     OS=Debian
     DOCKER_APT_REPO="deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         bionic stable"
-    MONGO_APT_REPO="deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu 
+    MONGO_APT_REPO="deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu \
         bionic/mongodb-org/4.2 multiverse"
 elif grep -q Debian <<< $RELEASE; then
     OS=Debian
@@ -30,8 +30,9 @@ DEBIAN_PACKAGES=$(cat <<EOF
 $SHARED_PACKAGES
 build-essential
 
+postgresql redis-server
 imagemagick shellcheck gnupg
-silversearcher-ag shellcheck
+silversearcher-ag 
 EOF
 )
 
@@ -48,21 +49,27 @@ openssl-devel
 EOF
 )
 
-systemd_enable_databases_on_restart() {
+fedora_enable_databases_on_restart() {
     fancy_echo "Ensuring databases run on startup."
     if sudo bash -c '[ ! -d "/var/lib/pgsql/data" ]'; then
         sudo /usr/bin/postgresql-setup --initdb
     fi
-    sudo service postgresql start
-    sudo service redis start
-    sudo service mongod start
     sudo systemctl enable postgresql
     sudo systemctl enable redis
     sudo systemctl enable mongod
 }
 
+debian_enable_databases_on_restart() {
+    fancy_echo "Ensuring databases run on startup."
+    sudo systemctl enable postgresql
+    sudo systemctl enable redis-server
+    sudo systemctl enable mongod
+}
+
 apt_add_mongo_repo() {
-    echo $DOCKER_APT_REPO | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+    echo "$MONGO_APT_REPO" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+    sudo apt install -y -q gnupg wget
+    wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
     sudo apt-get update
 }
 
@@ -92,7 +99,7 @@ deb_add_and_install_docker_ce() {
         gnupg-agent \
         software-properties-common
     curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-    sudo add-apt-repository $DOCKER_APT_REPO
+    sudo add-apt-repository "$DOCKER_APT_REPO"
     sudo apt-get update
     sudo apt-get install -y -q docker-ce docker-ce-cli containerd.io
 }
@@ -100,7 +107,6 @@ deb_add_and_install_docker_ce() {
 systemd_enable_docker_on_restart() {
     fancy_echo "Ensuring Docker runs on startup."
     sudo usermod -aG docker $(whoami)
-    sudo service docker start
     sudo systemctl enable docker
 }
 
@@ -111,7 +117,7 @@ case $OS in
         dnf_add_mongo_repo
         sudo dnf -y install $FEDORA_PACKAGES
         dnf_add_and_install_docker_ce
-        systemd_enable_databases_on_restart
+        fedora_enable_databases_on_restart
         systemd_enable_docker_on_restart
         ;;
     Debian)
@@ -119,7 +125,7 @@ case $OS in
         deb_add_and_install_docker_ce
         apt_add_mongo_repo
         sudo apt install -y -q $DEBIAN_PACKAGES
-        systemd_enable_databases_on_restart
+        debian_enable_databases_on_restart
         systemd_enable_docker_on_restart
         ;;
     *)
