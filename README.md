@@ -163,6 +163,23 @@ A recommended `~/.gitconfig.user` looks as follows.
 Reporting Bugs
 --------------
 
-CircleCI is run any time we push to the repository which runs the mac install to
-make sure everything works properly at least on a smoke test. If you come across
-any issues running the install script, feel free to open an issue.
+CircleCI is run any time we push to the repository which runs the mac, ubuntu
+and fedora install to make sure everything works properly at least on a smoke
+test. If you come across any issues running the install script, feel free to
+open an issue.
+
+When creating issues, please attach the entire console output of the script to
+help us track down the issue quicker.
+
+Contributing
+------------
+
+Pull requests are appreciated. There will be a deliniation made between what
+should be a user setting and what will be a feature widely enough used that it
+should make it into our standard dotfiles, this will be an ongoing conversation
+and will likely shift and mutate over time. Something rejected as a standard at
+one point in time, may be accepted in the future as our shop's standards change.
+
+User configurations should be done in your local `*.user` files, for all else,
+pull request or feature suggestions are appreciated. All pull requests go
+through CI and are smoke tested against Mac, Ubuntu, and Fedora.

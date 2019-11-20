@@ -89,12 +89,15 @@ update_shell() {
   local shell_path;
   shell_path="$(command -v zsh)"
 
-  fancy_echo "Changing your shell to zsh ..."
-  if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
-    fancy_echo "Adding '$shell_path' to /etc/shells"
-    sudo sh -c "echo $shell_path >> /etc/shells"
+  if [ -n "$USER" ]; then
+    fancy_echo "Changing your shell to zsh ..."
+    if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+      fancy_echo "Adding '$shell_path' to /etc/shells"
+      sudo sh -c "echo $shell_path >> /etc/shells"
+    fi
+
+    sudo chsh -s "$shell_path" "$USER"
   fi
-  sudo chsh -s "$shell_path" "$USER"
 }
 
 link_dotfile gitconfig
@@ -126,3 +129,10 @@ if [ ! -d "$HOME/.nvm" ]; then
 fi
 
 
+fancy_echo "===========================================================\\n"
+echo "Installation and Dotfiles have been completed successfully!"
+echo "If this is your first time running this script, please reboot"
+echo "your computer now. Enjoy the setup :)"
+fancy_echo "For more information about your new setup see:"
+echo "https://github.com/Shift3/laptop/blob/master/README.md"
+fancy_echo "==========================================================="
