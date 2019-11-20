@@ -160,6 +160,20 @@ A recommended `~/.gitconfig.user` looks as follows.
   email = jschiff@shift3tech.com
 ```
 
+You can customize your zsh as desired in `~/.zshrc.user`
+
+```sh
+# override the default prompt if you want :)
+# this one is really basic, don't use this one.
+export PS1='>:) '
+
+# any other regular zshrc customization personal to you...
+alias copy=pbcopy
+alias paste=pbpaste
+
+# etc...
+```
+
 Reporting Bugs
 --------------
 
@@ -183,3 +197,8 @@ one point in time, may be accepted in the future as our shop's standards change.
 User configurations should be done in your local `*.user` files, for all else,
 pull request or feature suggestions are appreciated. All pull requests go
 through CI and are smoke tested against Mac, Ubuntu, and Fedora.
+
+Supported Platforms currently are limited to the latest versions of each
+detected OS (Mac, Ubuntu, Debian, Fedora.) As this is already rather wide, we
+will likely not consider supporting additional platforms as we would like to
+keep the maintenance burden as low as possible
