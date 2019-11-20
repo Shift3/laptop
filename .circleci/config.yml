@@ -11,7 +11,7 @@ jobs:
       - run: ./setup
   test-ubuntu:
     docker:
-      - image: ubuntu:disco
+      - image: ubuntu:bionic
     steps:
       - checkout
       - run: apt update
