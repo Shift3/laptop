@@ -55,9 +55,9 @@ systemd_enable_databases_on_restart() {
     if sudo bash -c '[ ! -d "/var/lib/pgsql/data" ]'; then
         sudo /usr/bin/postgresql-setup --initdb
     fi
-    sudo systemctl start postgresql
-    sudo systemctl start redis
-    sudo systemctl start mongod
+    sudo service postgresql start
+    sudo service redis start
+    sudo service mongod start
     sudo systemctl enable postgresql
     sudo systemctl enable redis
     sudo systemctl enable mongod
@@ -96,7 +96,7 @@ deb_add_and_install_docker_ce() {
 systemd_enable_docker_on_restart() {
     fancy_echo "Ensuring Docker runs on startup."
     sudo usermod -aG docker $(whoami)
-    sudo systemctl start docker
+    sudo service docker start
     sudo systemctl enable docker
 }
 
