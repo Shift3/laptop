@@ -85,6 +85,12 @@ dnf_add_and_install_docker_ce() {
 }
 
 deb_add_and_install_docker_ce() {
+    sudo apt install -y \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg-agent \
+        software-properties-common
     curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
     sudo add-apt-repository $DOCKER_APT_REPO
     sudo apt-get update
@@ -110,10 +116,9 @@ case $OS in
         ;;
     Debian)
         fancy_echo "Installing packages using apt"
-        sudo apt install -y ca-certificates
+        deb_add_and_install_docker_ce
         apt_add_mongo_repo
         sudo apt install -y $DEBIAN_PACKAGES
-        deb_add_and_install_docker_ce
         systemd_enable_databases_on_restart
         systemd_enable_docker_on_restart
         ;;
