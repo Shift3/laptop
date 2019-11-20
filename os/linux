@@ -85,7 +85,7 @@ dnf_add_and_install_docker_ce() {
 }
 
 deb_add_and_install_docker_ce() {
-    sudo apt install -y \
+    sudo apt install -y -q \
         apt-transport-https \
         ca-certificates \
         curl \
@@ -94,7 +94,7 @@ deb_add_and_install_docker_ce() {
     curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
     sudo add-apt-repository $DOCKER_APT_REPO
     sudo apt-get update
-    sudo apt-get install docker-ce docker-ce-cli containerd.io
+    sudo apt-get install -y -q docker-ce docker-ce-cli containerd.io
 }
 
 systemd_enable_docker_on_restart() {
@@ -118,7 +118,7 @@ case $OS in
         fancy_echo "Installing packages using apt"
         deb_add_and_install_docker_ce
         apt_add_mongo_repo
-        sudo apt install -y $DEBIAN_PACKAGES
+        sudo apt install -y -q $DEBIAN_PACKAGES
         systemd_enable_databases_on_restart
         systemd_enable_docker_on_restart
         ;;
