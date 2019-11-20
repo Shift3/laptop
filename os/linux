@@ -110,6 +110,7 @@ case $OS in
         ;;
     Debian)
         fancy_echo "Installing packages using apt"
+        sudo apt install -y ca-certificates
         apt_add_mongo_repo
         sudo apt install -y $DEBIAN_PACKAGES
         deb_add_and_install_docker_ce
