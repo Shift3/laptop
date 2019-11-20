@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - run: apt update
-      - run: apt install -y shellcheck
+      - run: apt install -y shellcheck sudo
       - run: shellcheck setup -e SC2039
       - run: ./setup
   test-fedora:
@@ -23,7 +23,7 @@ jobs:
       - image: fedora:31
     steps:
       - checkout
-      - run: dnf -y install ShellCheck
+      - run: dnf -y install ShellCheck sudo
       - run: shellcheck setup -e SC2039
       - run: ./setup
 

@@ -20,7 +20,7 @@ elif grep -q Debian <<< $RELEASE; then
 fi
 
 SHARED_PACKAGES=$(cat <<EOF
-sudo curl git zsh vim tmux httpie vim hub
+curl git zsh vim tmux httpie vim hub
 
 mongodb-org
 EOF
