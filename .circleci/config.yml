@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test-mac:
+  build:
     macos:
       xcode: "10.0.0"
     steps:
