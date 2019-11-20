@@ -11,11 +11,19 @@ jobs:
       - run: sh setup
   test-ubuntu:
     docker:
-      - image: ubuntu/disco
+      - image: ubuntu:disco
     steps:
       - checkout
       - run: apt update
       - run: apt install shellcheck
+      - run: shellcheck setup -e SC2039
+      - run: sh setup
+  test-fedora:
+    docker:
+      - image: fedora:31
+    steps:
+      - checkout
+      - run: dnf install ShellCheck
       - run: shellcheck setup -e SC2039
       - run: sh setup
 
@@ -25,3 +33,4 @@ workflows:
     jobs:
       - test-mac
       - test-ubuntu
+      - test-fedora
