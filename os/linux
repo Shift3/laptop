@@ -8,15 +8,13 @@ if grep -q Fedora <<< $RELEASE; then
 elif grep -q Ubuntu <<< $RELEASE; then
     OS=Debian
     DOCKER_APT_REPO="deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-        $(lsb_release -cs) \
-        stable"
-    MONGO_APT_REPO="deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu \
+        bionic stable"
+    MONGO_APT_REPO="deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu 
         bionic/mongodb-org/4.2 multiverse"
 elif grep -q Debian <<< $RELEASE; then
     OS=Debian
     DOCKER_APT_REPO="deb [arch=amd64] https://download.docker.com/linux/debian \
-        $(lsb_release -cs) \
-        stable"
+        buster stable"
     MONGO_APT_REPO="deb http://repo.mongodb.org/apt/debian \
         buster/mongodb-org/4.2 main"
 fi
