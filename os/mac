@@ -62,8 +62,4 @@ brew "redis", restart_service: :changed
 brew "mongodb-community", restart_service: :changed
 EOF
 
-brew bundle --force --file=- <<EOF
-# Docker
-cask "docker"
-EOF
-
+brew cask install docker --force
