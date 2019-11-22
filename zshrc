@@ -16,6 +16,13 @@ autoload -U colors
 colors
 export CLICOLOR=1
 
+# Bash behavior for alt-left right arrows and alt-b(back word) alt-f(forward
+# word)
+autoload -U select-word-style
+select-word-style bash
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+
 # Prompt Code
 # modify the prompt to contain git branch name if applicable
 git_prompt_info() {
@@ -54,9 +61,6 @@ g() {
   fi
 }
 compdef g=git
-
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
 
 export PATH="$HOME/bin:$PATH"
 

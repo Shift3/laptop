@@ -174,6 +174,25 @@ alias paste=pbpaste
 # etc...
 ```
 
+You can customize your vim plugins in the `~/.vimrc.plug.user` file.
+
+```vim
+" Rails Plugins
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-repeat'
+```
+
+You can customize your vim itself in `~/.vimrc.user`
+```vim
+if has("gui_running")
+  set guifont=Source\ Code\ Pro\ 11
+endif
+```
+
 Reporting Bugs
 --------------
 

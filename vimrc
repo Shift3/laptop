@@ -17,14 +17,7 @@ call plug#begin('~/.vim/bundle')
   Plug 'nelstrom/vim-textobj-rubyblock'
   Plug 'vim-scripts/tComment'
   Plug 'tpope/vim-fugitive'
-
-  " Rails Plugins
-  Plug 'tpope/vim-bundler'
-  Plug 'tpope/vim-endwise'
-  Plug 'tpope/vim-eunuch'
-  Plug 'tpope/vim-rails'
-  Plug 'tpope/vim-rake'
-  Plug 'tpope/vim-repeat'
+  Plug 'adelarsq/vim-matchit'
 
   " Indentation
   Plug 'tpope/vim-sleuth'
@@ -39,6 +32,11 @@ call plug#begin('~/.vim/bundle')
 
   if g:has_async
     Plug 'dense-analysis/ale'
+  endif
+
+  " Local plug config
+  if filereadable($HOME . "/.vimrc.plug.user")
+    source ~/.vimrc.plug.user
   endif
 
 call plug#end()
@@ -114,10 +112,12 @@ augroup vimrcEx
     \ endif
 
   " Set syntax highlighting for specific file types
-  autocmd BufRead,BufNewFile Appraisals set filetype=ruby
   autocmd BufRead,BufNewFile *.md set filetype=markdown
-  " autocmd BufRead,BufNewFile *.hbs set filetype=handlebars
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
+  autocmd BufRead,BufNewFile zshrc.user,*/zsh/configs/* set filetype=sh
+  autocmd BufRead,BufNewFile gitconfig.user set filetype=gitconfig
+  autocmd BufRead,BufNewFile vimrc.user set filetype=vim
+  autocmd BufRead,BufNewFile vimrc.plug.user set filetype=vim
 augroup END
 
 " When the type of shell script is /bin/sh, assume a POSIX-compatible
@@ -125,17 +125,13 @@ augroup END
 let g:is_posix = 1
 
 " Use Ag over Grep
-set grepprg=ag\ --nogroup\ --nocolor
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
 
-" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-let g:ctrlp_user_command = 'ag --literal --files-with-matches --nocolor --hidden -g "" %s'
-
-" ag is fast enough that CtrlP doesn't need to cache
-let g:ctrlp_use_caching = 0
-
-if !exists(":Ag")
-  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-  nnoremap \ :Ag<SPACE>
+  if !exists(":Ag")
+    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+    nnoremap \ :Ag<SPACE>
+  endif
 endif
 
 " Tab completion
@@ -162,9 +158,6 @@ nnoremap <silent> <Leader>s :TestNearest<CR>
 nnoremap <silent> <Leader>l :TestLast<CR>
 nnoremap <silent> <Leader>a :TestSuite<CR>
 nnoremap <silent> <Leader>gt :TestVisit<CR>
-
-" Run commands that require an interactive shell
-nnoremap <Leader>r :RunInInteractiveShell<Space>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -228,27 +221,12 @@ au BufWritePre *.html :%s/\s\+$//e
 " `ctrl-p`
 let g:ctrlp_max_depth = 40
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+let g:ctrlp_use_caching = 0
 
 " `html.vim`
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 let g:html_indent_inctags = "html,body,head,tbody"
-
-" `vim-rails`
-map <Leader>su :RSunittest
-map <Leader>sv :RSview
-map <Leader>sm :RSmodel
-map <Leader>m :Rmodel
-map <Leader>u :Runittest<cr>
-map <Leader>vc :RVcontroller<cr>
-map <Leader>vf :RVfunctional<cr>
-map <Leader>vu :RVunittest<CR>
-map <Leader>vm :RVmodel<cr>
-map <Leader>vv :RVview<cr>
-map <Leader>pu :!python -m unittest discover<cr>
-map <Leader>pa :!python -m unittest discover<cr>
-
-nmap <silent> <leader>g :make && make run<CR>
 
 " `vim-test`
 nmap <silent> <leader>s :TestNearest<CR>
@@ -257,20 +235,12 @@ nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 let test#python#runner = 'djangotest'
 let test#ruby#use_spring_binstub = 1
+let g:test#javascript#mocha#file_pattern = '.*\.tests\.js'
 
 " `emmet`
 let g:user_emmet_settings = {
       \  'indentation' : '  '
       \}
-
-function! s:insert_gates()
-  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g") . "_"
-  execute "normal! i#ifndef " . gatename
-  execute "normal! o#define " . gatename
-  execute "normal! Go#endif // " . gatename
-  normal! kk
-endfunction
-autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
 " Local config
 if filereadable($HOME . "/.vimrc.user")
