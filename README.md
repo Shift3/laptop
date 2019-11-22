@@ -5,7 +5,8 @@ Shift3 Laptop Setup and Dotfiles
 
 The scripts contained in this repo will setup your Mac, Ubuntu, Debian, or
 Fedora computer with a base development environment, installing tools that we
-find helpful and configuring them with sensible defaults.
+find helpful and configuring them with sensible defaults. There are separate
+instructions for configuring Windows found [here](https://github.com/Shift3/standards-and-practices#windows).
 
 It also maintains your dotfiles and provides a way for you to customize them to
 your liking if desired.
@@ -220,4 +221,5 @@ through CI and are smoke tested against Mac, Ubuntu, and Fedora.
 Supported Platforms currently are limited to the latest versions of each
 detected OS (Mac, Ubuntu, Debian, Fedora.) As this is already rather wide, we
 will likely not consider supporting additional platforms as we would like to
-keep the maintenance burden as low as possible
+keep the maintenance burden as low as possible. The Windows configuration flow
+is handled separately by Windows users on the team.
