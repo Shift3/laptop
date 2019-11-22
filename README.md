@@ -1,4 +1,4 @@
-Shift3 Laptop setup and Dotfiles
+Shift3 Laptop Setup and Dotfiles
 ================================
 
 [![CircleCI](https://circleci.com/gh/Shift3/laptop.svg?style=svg&circle-token=e273355c5438b649729962059454a44bd2b255a4)](https://circleci.com/gh/Shift3/laptop)
@@ -10,15 +10,15 @@ find helpful and configuring them with sensible defaults.
 It also maintains your dotfiles and provides a way for you to customize them to
 your liking if desired.
 
-The `setup` script is designed to be ran multiple times if necessary, it is
-non-destructive, and will backup your previous dotfile setup if any exist.
+The `setup` script is designed to be run multiple times if necessary. It is
+non-destructive, and will backup your previous dotfile setup if any exists.
 
 ![screen](img/screen.png)
 
 Install
 -------
 
-You will need to keep the repo around somewhere safe, so lets make a folder for
+You will need to keep the repo around somewhere safe, so let's make a folder for
 it and clone the repo into it.
 
 ```sh
@@ -35,8 +35,8 @@ cd laptop
 # Y/N prompts, please hit Y <enter>
 ```
 
-It should take around 5-10 minutes to install everything. After install reboot
-your computer to ensure that everything takes. 
+It should take around 5-10 minutes to install everything. After install, reboot
+your computer to ensure that everything takes.
 
 
 What it installs
@@ -92,29 +92,29 @@ Databases:
 [Redis]: http://redis.io/
 [Mongo]: https://www.mongodb.com/
 
-What is Configures
+What It Configures
 ------------------
 
 Git:
 
 * `g` typed alone is the same as `git status` and can be used as a replacement
-  for `git`, so you can type any git command with `g` instead like: `g commit`
+  for `git`, so you can type any git command with `g` instead like: `g commit`.
 * Sets up git commit to use a template encouraging you to write nice git commit
   messages.
 * Some sensible defaults for fetch, rebase, merge, and push.
 * Sets up some handy aliases, notable aliases are:
 
-| Alias         | Description                                        |
-| ------------- |:--------------------------------------------------:|
-| `g aa`        | git add all unstaged files                         |
-| `g c`         | Commit (brings up EDITOR)                          |
-| `g ca`        | Amend last commit                                  |
-| `g co`        | Checkout                                           |
-| `g d`         | Diff                                               |
-| `g fup`       | Fetch and rebase branch against develop            |
-| `g lg`        | A prettier and nicer git log                       |
-| `g branches`  | Pretty list of branches                            |
-| `g who`       | List of people who are major commiters on the repo |
+| Alias         | Description                                         |
+| ------------- |:--------------------------------------------------: |
+| `g aa`        | git add all unstaged files                          |
+| `g c`         | Commit (brings up EDITOR)                           |
+| `g ca`        | Amend last commit                                   |
+| `g co`        | Checkout                                            |
+| `g d`         | Diff                                                |
+| `g fup`       | Fetch and rebase branch against develop             |
+| `g lg`        | A prettier and nicer git log                        |
+| `g branches`  | Pretty list of branches                             |
+| `g who`       | List of people who are major committers on the repo |
 
 Zsh:
 
@@ -146,13 +146,13 @@ Maintaining your customizations
 -------------------------------
 
 You may choose 1 of 2 options. Either you can fork this repo and make your
-changes directly to the dotfiles herein, or you can use the built in
-extensibility, each dotfiles calls out to another dotfile extension if it
-exists. For example if `~/.zshrc.user` exists it will be called and your extra
-configurations for zsh will be executed from there. Similar customizations for
-`~/.gitconfig.user` 
+changes directly to the dotfiles inside, or you can use the built-in
+extensibility, each dotfile calls out to another dotfile extension if it
+exists. For example if `~/.zshrc.user` exists, it will be called and your extra
+configurations for zsh will be executed from there. Customizations are handled in the same way for
+`~/.gitconfig.user`.
 
-A recommended `~/.gitconfig.user` looks as follows.
+A recommended `~/.gitconfig.user` is as follows:
 
 ```ini
 [user]
@@ -160,21 +160,21 @@ A recommended `~/.gitconfig.user` looks as follows.
   email = jschiff@shift3tech.com
 ```
 
-You can customize your zsh as desired in `~/.zshrc.user`
+You can customize your zsh as desired in `~/.zshrc.user`:
 
 ```sh
 # override the default prompt if you want :)
 # this one is really basic, don't use this one.
 export PS1='>:) '
 
-# any other regular zshrc customization personal to you...
+# any other regular zshrc customization personal to you
 alias copy=pbcopy
 alias paste=pbpaste
 
-# etc...
+# etc.
 ```
 
-You can customize your vim plugins in the `~/.vimrc.plug.user` file.
+You can customize your vim plugins in the `~/.vimrc.plug.user` file:
 
 ```vim
 " Rails Plugins
@@ -186,7 +186,7 @@ Plug 'tpope/vim-rake'
 Plug 'tpope/vim-repeat'
 ```
 
-You can customize your vim itself in `~/.vimrc.user`
+You can customize your vim itself in `~/.vimrc.user`:
 ```vim
 if has("gui_running")
   set guifont=Source\ Code\ Pro\ 11
@@ -196,24 +196,24 @@ endif
 Reporting Bugs
 --------------
 
-CircleCI is run any time we push to the repository which runs the mac, ubuntu
-and fedora install to make sure everything works properly at least on a smoke
+CircleCI is run any time we push to the repository which runs the Mac, Ubuntu
+and Fedora installs to make sure everything works properly at least on a smoke
 test. If you come across any issues running the install script, feel free to
 open an issue.
 
 When creating issues, please attach the entire console output of the script to
-help us track down the issue quicker.
+help us track down the issue more quickly.
 
 Contributing
 ------------
 
-Pull requests are appreciated. There will be a deliniation made between what
+Pull requests are appreciated. There will be a delineation made between what
 should be a user setting and what will be a feature widely enough used that it
-should make it into our standard dotfiles, this will be an ongoing conversation
+should make it into our standard dotfiles. This will be an ongoing conversation
 and will likely shift and mutate over time. Something rejected as a standard at
 one point in time, may be accepted in the future as our shop's standards change.
 
-User configurations should be done in your local `*.user` files, for all else,
+User configurations should be done in your local `*.user` files. For anything else,
 pull request or feature suggestions are appreciated. All pull requests go
 through CI and are smoke tested against Mac, Ubuntu, and Fedora.
 
