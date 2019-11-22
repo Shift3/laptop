@@ -117,19 +117,19 @@ Git:
 
 Zsh:
 
-* Sets a nice pretty prompt, whenever you cd into a directory with git displays
+* Sets a nice pretty prompt, whenever you `cd` into a directory with git displays
   the git branch in the prompt.
 * Setup autocompletion.
-* Uses some cd movement options of zsh, you can type the directory names instead
-  of prefixing them with cd making movement easier.
+* Uses some `cd` movement options of zsh, you can type the directory names instead
+  of prefixing them with `cd` making movement easier.
 * Enables some extended features making zsh nicer.
 * Setup `PATH` to function with some of the OS packages we installed earlier,
-  nvm, yarn, homebrew (if on mac), ~/bin (if exists).
+  nvm, yarn, homebrew (if on mac), `~/bin` (if exists).
 * Set default terminal editor to vim.
 
 Psql:
 
-* psql console does not wrap records in an ugly way now if the line is too long,
+* `psql` console does not wrap records in an ugly way now if the line is too long,
   it chooses the best layout based on how long the row is.
 * Keeps history so if you close console and come back in you can still press up
   to view your command history.
