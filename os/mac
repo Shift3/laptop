@@ -30,6 +30,7 @@ fi
 
 fancy_echo "Updating Homebrew formulae ..."
 brew update --force # https://github.com/Homebrew/brew/issues/1151
+
 brew bundle --file=- <<EOF
 tap "homebrew/services"
 tap "mongodb/brew"
@@ -42,9 +43,6 @@ brew "tmux"
 brew "vim"
 brew "watchman"
 brew "zsh"
-
-# Docker
-cask "docker"
 
 # GitHub
 brew "hub"
@@ -63,3 +61,9 @@ brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
 brew "mongodb-community", restart_service: :changed
 EOF
+
+brew bundle --force --file=- <<EOF
+# Docker
+cask "docker"
+EOF
+
