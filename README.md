@@ -51,7 +51,7 @@ macOS tools (if on mac):
 Unix tools:
 
 * [Git] for version control
-* [OpenSSL] for Transport Layer Security (TLS)
+* [OpenSSL] for [Transport Layer Security (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security)
 * [The Silver Searcher] for finding things in files
 * [Tmux] for saving project state and switching between projects
 * [Watchman] for watching for filesystem events
