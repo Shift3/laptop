@@ -38,7 +38,6 @@ cd laptop
 It should take around 5-10 minutes to install everything. After install, reboot
 your computer to ensure that everything takes.
 
-
 What it installs
 ----------------
 
@@ -187,6 +186,7 @@ Plug 'tpope/vim-repeat'
 ```
 
 You can customize your vim itself in `~/.vimrc.user`:
+
 ```vim
 if has("gui_running")
   set guifont=Source\ Code\ Pro\ 11
