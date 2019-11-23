@@ -47,6 +47,9 @@ brew "zsh"
 # GitHub
 brew "hub"
 
+# Docker
+cask "docker", args: { force: true }
+
 # Image manipulation
 brew "imagemagick"
 
@@ -61,5 +64,3 @@ brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
 brew "mongodb-community", restart_service: :changed
 EOF
-
-brew cask install docker --force
