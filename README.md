@@ -194,6 +194,19 @@ if has("gui_running")
 endif
 ```
 
+Additional setup instructions can be provided from `~/.laptop.user`
+
+```bash
+#!/bin/bash
+
+# Install rbenv
+if [ ! -d ~/.rbenv ]; then
+  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  cd ~/.rbenv && src/configure && make -C src
+  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+fi
+```
+
 Reporting Bugs
 --------------
 

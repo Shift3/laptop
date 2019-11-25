@@ -114,9 +114,7 @@ vim_up
 
 case "$SHELL" in
   */zsh)
-    if [ "$(command -v zsh)" != '/usr/local/bin/zsh' ] ; then
-      update_shell
-    fi
+    fancy_echo "Already using zsh ..."
     ;;
   *)
     update_shell
@@ -128,6 +126,11 @@ if [ ! -d "$HOME/.nvm" ]; then
   install_nvm
 fi
 
+if [ -f "$HOME/.laptop.user" ]; then
+  fancy_echo "Running your customizations from ~/.laptop.user..."
+  # shellcheck disable=SC1090
+  source "$HOME/.laptop.user"
+fi
 
 fancy_echo "===========================================================\\n"
 echo "Installation and Dotfiles have been completed successfully!"
