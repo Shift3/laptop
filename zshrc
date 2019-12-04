@@ -7,7 +7,11 @@ HISTSIZE=4096
 SAVEHIST=4096
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-# nice completion
+# extended completions
+if [ -d ~/.zsh/completion/src ]; then
+  fpath=(~/.zsh/completion/src $fpath)
+fi
+
 autoload -Uz compinit
 compinit
 
@@ -76,4 +80,3 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # NOTE: You may place your own configurations in ~/.zshrc.user
 [[ -f ~/.zshrc.user ]] && source ~/.zshrc.user
-

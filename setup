@@ -126,6 +126,12 @@ if [ ! -d "$HOME/.nvm" ]; then
   install_nvm
 fi
 
+# extended zsh completion
+if [ ! -d ~/.zsh/completion ]; then
+  mkdir -p ~/.zsh
+  git clone git://github.com/zsh-users/zsh-completions.git ~/.zsh/completion
+fi
+
 if [ -f "$HOME/.laptop.user" ]; then
   fancy_echo "Running your customizations from ~/.laptop.user..."
   # shellcheck disable=SC1090
