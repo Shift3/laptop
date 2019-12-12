@@ -26,6 +26,8 @@ autoload -U select-word-style
 select-word-style bash
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
 
 # Prompt Code
 # modify the prompt to contain git branch name if applicable
