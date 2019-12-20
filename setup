@@ -1,6 +1,22 @@
 #!/bin/bash
 
-set -e
+trap 'setup_error' ERR
+
+setup_error() {
+  echo
+  echo "==========================================================="
+  echo "Something went wrong with setup, it was not able to complete."
+  echo "Look above for any errors and try to correct them and run again."
+  echo
+  echo "If you are unable to fix the error, you can report an issue:"
+  echo "https://github.com/shift3/laptop/issues"
+  echo
+  echo "Please attach the logs printed above this message to help us"
+  echo "debug the issue."
+  echo "==========================================================="
+
+  exit 1
+}
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
