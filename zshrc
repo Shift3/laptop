@@ -24,6 +24,7 @@ export CLICOLOR=1
 # word)
 autoload -U select-word-style
 select-word-style bash
+bindkey -e
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;3C" forward-word
