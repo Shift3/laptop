@@ -6,6 +6,7 @@ jobs:
     steps:
       - checkout
       - run: brew update
+      - run: brew unlink python@2
       - run: brew install shellcheck
       - run: shellcheck setup -e SC2039
       - run: ./setup
