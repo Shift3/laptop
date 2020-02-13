@@ -48,6 +48,12 @@ macOS tools (if on mac):
 
 [Homebrew]: http://brew.sh/
 
+Language tools:
+
+* [nvm] for managing node version locally
+
+[nvm]: https://github.com/nvm-sh/nvm
+
 Unix tools:
 
 * [Git] for version control
