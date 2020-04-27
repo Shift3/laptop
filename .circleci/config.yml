@@ -12,7 +12,7 @@ jobs:
       - run: ./setup
   test-ubuntu:
     docker:
-      - image: ubuntu:19.04
+      - image: ubuntu:20.04
         environment:
           DEBIAN_FRONTEND: noninteractive
           TZ: America/Los_Angeles
