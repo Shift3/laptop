@@ -1,6 +1,16 @@
 #!/bin/bash
 HOMEBREW_PREFIX="/usr/local"
 
+fix_zsh_permissions() {
+    # With Mac OS Version >= 10.15.4 seems like fixing directory permissions is
+    # necessary.
+    # See: https://github.com/Shift3/laptop/issues/11
+    if [ -d $HOMEBREW_PREFIX/share/zsh ]; then
+        sudo chmod -R 755 $HOMEBREW_PREFIX/share/zsh
+        sudo chown -R root:staff $HOMEBREW_PREFIX/share/zsh
+    fi
+}
+
 install_homebrew() {
   if [ -d "$HOMEBREW_PREFIX" ]; then
     if ! [ -r "$HOMEBREW_PREFIX" ]; then
@@ -64,3 +74,5 @@ brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
 brew "mongodb-community", restart_service: :changed
 EOF
+
+fix_zsh_permissions
