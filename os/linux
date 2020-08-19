@@ -2,17 +2,18 @@
 
 OS=
 RELEASE=$(cat /etc/*release | grep ^NAME)
+ID_LIKE=$(cat /etc/*release | grep "^ID_LIKE=")
 ID=$(cat /etc/*release | grep "^ID=")
 
 if grep -q Fedora <<< $RELEASE; then
     OS=Fedora
-elif grep -q ubuntu <<< $ID; then
+elif grep -q -i ubuntu <<< $ID || grep -q -i ubuntu <<< $ID_LIKE; then
     OS=Debian
     DOCKER_APT_REPO="deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         bionic stable"
     MONGO_APT_REPO="deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu \
         bionic/mongodb-org/4.2 multiverse"
-elif grep -q Debian <<< $RELEASE; then
+elif grep -q -i debian <<< $ID || grep -q -i debian <<< $ID_LIKE; then
     OS=Debian
     DOCKER_APT_REPO="deb [arch=amd64] https://download.docker.com/linux/debian \
         buster stable"
