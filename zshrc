@@ -74,9 +74,30 @@ export PATH="$HOME/bin:$PATH"
 # for mac systems this will pickup homebrew, otherwise nice to have.
 export PATH="/usr/local/bin:$PATH"
 
-# nvm
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+lazy_load() {
+  local -a names
+  if [[ -n "$ZSH_VERSION" ]]; then
+    names=("${(@s: :)${1}}")
+  else
+    names=($1)
+  fi
+  unalias "${names[@]}"
+  . $2
+  shift 2
+  $*
+}
+
+lazy_load_for_commands() {
+  local script
+  script=$1
+  shift 1
+  for cmd in "$@"; do
+    alias $cmd="lazy_load \"$*\" $script $cmd"
+  done
+}
+
+export NVM_DIR=~/.nvm
+lazy_load_for_commands $HOME/.nvm/nvm.sh nvm node npm gulp yarn
 
 # yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
