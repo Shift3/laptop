@@ -119,9 +119,7 @@ case $OS in
         sudo dnf groupinstall -y "C Development Tools and Libraries"
         dnf_add_mongo_repo
         sudo dnf -y install $FEDORA_PACKAGES
-        dnf_add_and_install_docker_ce
         fedora_enable_databases_on_restart
-        systemd_enable_docker_on_restart
         ;;
     Debian)
         fancy_echo "Installing packages using apt"
