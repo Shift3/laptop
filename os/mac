@@ -37,7 +37,7 @@ fix_previous_homebrew_if_necessary() {
 fix_previous_homebrew_if_necessary
 install_homebrew
 
-if brew list | grep -Fq brew-cask; then
+if brew list --formula | grep -Fq brew-cask; then
   fancy_echo "Uninstalling old Homebrew-Cask ..."
   brew uninstall --force brew-cask
 fi
