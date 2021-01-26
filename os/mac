@@ -19,6 +19,22 @@ install_homebrew() {
   fi
 }
 
+fix_previous_homebrew_if_necessary() {
+  HOMEBREW_LIBRARY=/usr/local/Homebrew/Library
+
+  [[ -f "$HOMEBREW_LIBRARY/Taps/homebrew/homebrew-core/.git/shallow" ]] && HOMEBREW_CORE_SHALLOW=1
+  [[ -f "$HOMEBREW_LIBRARY/Taps/homebrew/homebrew-cask/.git/shallow" ]] && HOMEBREW_CASK_SHALLOW=1
+
+  if [[ -n $HOMEBREW_CORE_SHALLOW ]]; then
+    git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" fetch --unshallow
+  fi
+
+  if [[ -n $HOMEBREW_CASK_SHALLOW ]]; then
+    git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask" fetch --unshallow
+  fi
+}
+
+fix_previous_homebrew_if_necessary
 install_homebrew
 
 if brew list | grep -Fq brew-cask; then
