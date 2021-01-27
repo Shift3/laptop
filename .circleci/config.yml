@@ -2,14 +2,16 @@ version: 2
 jobs:
   test-mac:
     macos:
-      xcode: "10.0.0"
+      xcode: 12.3.0
     steps:
       - checkout
       - run: brew update
-      - run: brew unlink python@2
       - run: brew install shellcheck
       - run: shellcheck setup -e SC2039
-      - run: ./setup
+      - run:
+          name: Run Setup Script
+          command: ./setup
+          no_output_timeout: 30m
   test-ubuntu:
     docker:
       - image: ubuntu:20.04
@@ -25,7 +27,7 @@ jobs:
       - run: ./setup
   test-fedora:
     docker:
-      - image: fedora:31
+      - image: fedora:33
     steps:
       - checkout
       - run: dnf -y install ShellCheck sudo util-linux-user
