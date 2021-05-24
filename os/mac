@@ -64,6 +64,10 @@ brew "hub"
 # Docker
 cask "docker", args: { force: true }
 
+# Devops Tools
+brew "circleci"
+brew "terraform"
+
 # Image manipulation
 brew "imagemagick"
 
