@@ -113,19 +113,39 @@ systemd_enable_docker_on_restart() {
     sudo systemctl enable docker
 }
 
+install_circleci_cli() {
+    curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
+}
+
+deb_add_and_install_terraform() {
+    curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+    sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+    sudo apt-get install -y terraform
+}
+
+dnf_add_and_install_terraform() {
+    sudo dnf install -y dnf-plugins-core
+    sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/$release/hashicorp.repo
+    sudo dnf -y install terraform
+}
+
 case $OS in
     Fedora)
         fancy_echo "Installing packages using dnf"
         sudo dnf groupinstall -y "C Development Tools and Libraries"
         dnf_add_mongo_repo
+        dnf_add_and_install_terraform
         sudo dnf -y install $FEDORA_PACKAGES
+        install_circleci_cli
         fedora_enable_databases_on_restart
         ;;
     Debian)
         fancy_echo "Installing packages using apt"
         deb_add_and_install_docker_ce
+        deb_add_and_install_terraform
         apt_add_mongo_repo
         sudo apt install -y -q $DEBIAN_PACKAGES
+        install_circleci_cli
         debian_enable_databases_on_restart
         systemd_enable_docker_on_restart
         ;;
