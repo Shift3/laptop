@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: brew update
       - run: brew install shellcheck
-      - run: shellcheck setup -e SC2039
+      - run: shellcheck setup -e SC2039 -e SC1091
       - run:
           name: Run Setup Script
           command: ./setup
@@ -23,7 +23,7 @@ jobs:
       - run: ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
       - run: apt update
       - run: apt install -y shellcheck sudo
-      - run: shellcheck setup -e SC2039
+      - run: shellcheck setup -e SC2039 -e SC1091
       - run: ./setup
   test-fedora:
     docker:
@@ -31,7 +31,7 @@ jobs:
     steps:
       - checkout
       - run: dnf -y install ShellCheck sudo util-linux-user
-      - run: shellcheck setup -e SC2039
+      - run: shellcheck setup -e SC2039 -e SC1091
       - run: ./setup
 
 workflows:
