@@ -78,6 +78,10 @@ export PATH="/usr/local/bin:$PATH"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
+# automatically switch to node version when changing directories.
+# if undesired you can remove this behavior by placing
+# `add-zsh-hook -d chpwd load-nvmrc`
+# to your ~/.zshrc.user
 autoload -U add-zsh-hook
 load-nvmrc() {
   local node_version;

@@ -133,6 +133,8 @@ Zsh:
 * Setup `PATH` to function with some of the OS packages we installed earlier,
   nvm, yarn, homebrew (if on mac), `~/bin` (if exists).
 * Set default terminal editor to vim.
+* Automatically switches to the node version specified in `.nvmrc` or `.node_version`
+  when changing to a new directory.
 
 Psql:
 
