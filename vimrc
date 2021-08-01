@@ -6,7 +6,6 @@ let g:has_async = v:version >= 800 || has('nvim')
 
 call plug#begin('~/.vim/bundle')
   " Plugins that do stuff.
-  Plug 'DropsOfSerenity/oblivion'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'tpope/vim-abolish' " e.g crc = CoeRce Camelcase
   Plug 'tpope/vim-surround'
@@ -179,10 +178,7 @@ else
 endif
 
 " Appearance
-set background=dark
-if !$VIM_INSTALL_PHASE
-  colorscheme oblivion
-endif
+colorscheme default
 
 nmap <leader>h :nohlsearch<cr>
 
