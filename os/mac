@@ -67,6 +67,8 @@ cask "docker", args: { force: true }
 # Devops Tools
 brew "circleci"
 brew "terraform"
+brew "awscli"
+brew "aws-elasticbeanstalk"
 
 # Image manipulation
 brew "imagemagick"
