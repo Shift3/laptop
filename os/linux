@@ -32,7 +32,7 @@ DEBIAN_PACKAGES=$(cat <<EOF
 $SHARED_PACKAGES
 build-essential
 
-postgresql redis-server
+postgresql redis-server awscli python3 python3-pip
 imagemagick shellcheck gnupg
 silversearcher-ag
 EOF
@@ -40,11 +40,11 @@ EOF
 
 FEDORA_PACKAGES=$(cat <<EOF
 $SHARED_PACKAGES
-
+python3 python3-pip
 util-linux-user
 git-lfs the_silver_searcher
 ShellCheck ImageMagick
-postgresql-server postgresql-contrib libpq-devel redis
+postgresql-server postgresql-contrib libpq-devel redis awscli
 
 dnf-plugins-core
 
@@ -117,6 +117,10 @@ install_circleci_cli() {
     curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
 }
 
+install_eb_cli() {
+    pip3 install --user --upgrade awsebcli
+}
+
 deb_add_and_install_terraform() {
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
     sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
@@ -137,6 +141,7 @@ case $OS in
         dnf_add_and_install_terraform
         sudo dnf -y install $FEDORA_PACKAGES
         install_circleci_cli
+        install_eb_cli
         fedora_enable_databases_on_restart
         ;;
     Debian)
@@ -146,6 +151,7 @@ case $OS in
         apt_add_mongo_repo
         sudo apt install -y -q $DEBIAN_PACKAGES
         install_circleci_cli
+        install_eb_cli
         debian_enable_databases_on_restart
         systemd_enable_docker_on_restart
         ;;
