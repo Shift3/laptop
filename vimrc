@@ -80,7 +80,9 @@ set splitright
 set complete+=kspell
 
 " Always use vertical diffs
-set diffopt+=vertical
+if &diff
+  set diffopt+=vertical
+endif
 
 set ignorecase
 set smartcase
