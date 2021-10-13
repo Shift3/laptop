@@ -1,4 +1,3 @@
-set nocompatible
 filetype plugin on
 syntax on
 
@@ -94,6 +93,7 @@ set ar
 set incsearch
 set hlsearch
 set vb t_vb=
+set nocompatible
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
