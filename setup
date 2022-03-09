@@ -137,6 +137,11 @@ case "$SHELL" in
     ;;
 esac
 
+if [ ! -d "$HOME/.aws" ] || [ ! -f "$HOME/.aws/config" ] || ! grep -q "\[profile shift3\]" ~/.aws/config; then
+  fancy_echo "Configuring your AWS cli with a shift3 profile. When prompted please enter your AWS credentials. See: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html?icmpid=docs_iam_console#Using_CreateAccessKey for instructions on how to create your security credentials."
+  aws configure --profile shift3
+fi
+
 if [ ! -d "$HOME/.nvm" ]; then
   fancy_echo "Installing Node ..."
   install_nvm
