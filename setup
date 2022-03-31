@@ -145,7 +145,7 @@ fi
 # extended zsh completion
 if [ ! -d ~/.zsh/completion ]; then
   mkdir -p ~/.zsh
-  git clone git://github.com/zsh-users/zsh-completions.git ~/.zsh/completion
+  git clone https://github.com/zsh-users/zsh-completions.git ~/.zsh/completion
 fi
 
 if [ -f "$HOME/.laptop.user" ]; then
