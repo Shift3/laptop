@@ -73,6 +73,7 @@ export PATH="$HOME/bin:$PATH"
 
 # for mac systems this will pickup homebrew, otherwise nice to have.
 export PATH="/usr/local/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 
 # add path for python user directory binaries
 export PATH="${PATH}:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
