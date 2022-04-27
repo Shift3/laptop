@@ -148,6 +148,15 @@ if [ ! -d ~/.zsh/completion ]; then
   git clone https://github.com/zsh-users/zsh-completions.git ~/.zsh/completion
 fi
 
+# Configure aws credentials
+if [ -n "$(command -v aws)" ]; then
+  fancy_echo "Configuring your AWS credentials. Please enter them when asked."
+  fancy_echo "If you do not know, or have, your AWS credentials, visit:"
+  fancy_echo "https://us-east-1.console.aws.amazon.com/iam/home?region=us-west-2#/security_credentials"
+  fancy_echo "To generate a set of credentials to use."
+  aws configure --profile shift3
+fi
+
 if [ -f "$HOME/.laptop.user" ]; then
   fancy_echo "Running your customizations from ~/.laptop.user..."
   # shellcheck disable=SC1090
