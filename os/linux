@@ -11,20 +11,14 @@ elif grep -q -i ubuntu <<< $ID || grep -q -i ubuntu <<< $ID_LIKE; then
     OS=Debian
     DOCKER_APT_REPO="deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         bionic stable"
-    MONGO_APT_REPO="deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu \
-        bionic/mongodb-org/4.2 multiverse"
 elif grep -q -i debian <<< $ID || grep -q -i debian <<< $ID_LIKE; then
     OS=Debian
     DOCKER_APT_REPO="deb [arch=amd64] https://download.docker.com/linux/debian \
         buster stable"
-    MONGO_APT_REPO="deb http://repo.mongodb.org/apt/debian \
-        buster/mongodb-org/4.2 main"
 fi
 
 SHARED_PACKAGES=$(cat <<EOF
 curl git zsh vim tmux httpie vim hub
-
-mongodb-org
 EOF
 )
 
@@ -32,7 +26,7 @@ DEBIAN_PACKAGES=$(cat <<EOF
 $SHARED_PACKAGES
 build-essential
 
-postgresql redis-server awscli python3 python3-pip
+awscli python3 python3-pip
 imagemagick shellcheck gnupg
 silversearcher-ag
 EOF
@@ -44,48 +38,13 @@ python3 python3-pip
 util-linux-user
 git-lfs the_silver_searcher
 ShellCheck ImageMagick
-postgresql-server postgresql-contrib libpq-devel redis awscli
+awscli
 
 dnf-plugins-core
 
 openssl-devel
 EOF
 )
-
-fedora_enable_databases_on_restart() {
-    fancy_echo "Ensuring databases run on startup."
-    if sudo bash -c '[ ! -d "/var/lib/pgsql/data" ]'; then
-        sudo /usr/bin/postgresql-setup --initdb
-    fi
-    sudo systemctl enable postgresql
-    sudo systemctl enable redis
-    sudo systemctl enable mongod
-}
-
-debian_enable_databases_on_restart() {
-    fancy_echo "Ensuring databases run on startup."
-    sudo systemctl enable postgresql
-    sudo systemctl enable redis-server
-    sudo systemctl enable mongod
-}
-
-apt_add_mongo_repo() {
-    echo "$MONGO_APT_REPO" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
-    sudo apt install -y -q gnupg wget
-    wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-    sudo apt-get update
-}
-
-dnf_add_mongo_repo() {
-    sudo tee /etc/yum.repos.d/mongodb-org-4.2.repo > /dev/null <<EOF
-[mongodb-org-4.2]
-name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/8/mongodb-org/4.2/x86_64/
-gpgcheck=1
-enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
-EOF
-}
 
 dnf_add_and_install_docker_ce() {
     sudo dnf config-manager \
@@ -109,7 +68,7 @@ deb_add_and_install_docker_ce() {
 
 systemd_enable_docker_on_restart() {
     fancy_echo "Ensuring Docker runs on startup."
-    sudo usermod -aG docker $(whoami)
+    sudo usermod -aG docker "$(whoami)"
     sudo systemctl enable docker
 }
 
@@ -137,22 +96,18 @@ case $OS in
     Fedora)
         fancy_echo "Installing packages using dnf"
         sudo dnf groupinstall -y "C Development Tools and Libraries"
-        dnf_add_mongo_repo
         dnf_add_and_install_terraform
         sudo dnf -y install $FEDORA_PACKAGES
         install_circleci_cli
         install_eb_cli
-        fedora_enable_databases_on_restart
         ;;
     Debian)
         fancy_echo "Installing packages using apt"
         deb_add_and_install_docker_ce
         deb_add_and_install_terraform
-        apt_add_mongo_repo
         sudo apt install -y -q $DEBIAN_PACKAGES
         install_circleci_cli
         install_eb_cli
-        debian_enable_databases_on_restart
         systemd_enable_docker_on_restart
         ;;
     *)
