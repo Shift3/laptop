@@ -47,7 +47,6 @@ brew update --force # https://github.com/Homebrew/brew/issues/1151
 
 brew bundle --file=- <<EOF
 tap "homebrew/services"
-tap "mongodb/brew"
 
 # Unix
 brew "git"
@@ -78,11 +77,6 @@ brew "libyaml" # should come after openssl
 brew "coreutils"
 brew "yarn"
 cask "gpg-suite"
-
-# Databases
-brew "postgres", restart_service: :changed
-brew "redis", restart_service: :changed
-brew "mongodb-community", restart_service: :changed
 EOF
 
 fix_zsh_permissions
