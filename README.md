@@ -88,16 +88,6 @@ Image tools:
 
 [ImageMagick]: https://imagemagick.org/index.php
 
-Databases:
-
-* [Postgres] for storing relational data
-* [Redis] for storing key-value data
-* [Mongo] for non-relational data
-
-[Postgres]: http://www.postgresql.org/
-[Redis]: http://redis.io/
-[Mongo]: https://www.mongodb.com/
-
 What It Configures
 ------------------
 
