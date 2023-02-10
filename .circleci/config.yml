@@ -2,7 +2,7 @@ version: 2
 jobs:
   test-mac:
     macos:
-      xcode: 12.3.0
+      xcode: 14.2.0
     steps:
       - checkout
       - run: brew update
