@@ -8,6 +8,7 @@ call plug#begin('~/.vim/bundle')
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'tpope/vim-abolish' " e.g crc = CoeRce Camelcase
   Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-repeat'
   Plug 'pbrisbin/vim-mkdir'
   Plug 'kana/vim-textobj-user'
   Plug 'janko-m/vim-test'
